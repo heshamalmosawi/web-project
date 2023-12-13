@@ -14,7 +14,7 @@
         $fixedArr[$key] = 0;
       }
 
-      print_r($fixedArr);
+      // print_r($fixedArr);
       $x = json_encode($fixedArr);
       
       $rs->bindParam(1, $questionName);
