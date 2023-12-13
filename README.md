@@ -6,7 +6,7 @@
 * Loay Hasan Dalal
 * Ebrahim Ali Ebrahim
 * Hasan Abdulnabi salman
-* Mohammed Ayoob Ali
+* Abdulrahman Jalal Zaid
 
 This is an ongoing project and we will finish the readme file later.
 
