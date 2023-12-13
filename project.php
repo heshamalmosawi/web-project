@@ -1,12 +1,13 @@
 <?php
-if (!isset($_POST['questionName']) || (!isset($_POST['op']))){
-  alert
-} else {
+try{
   require('connection.php');
-
+  $rs=$db->prepare("INSERT ")
   $op = $_POST['op'];
   print_r($op);
-  // echo count($_POST['op']);
+}
+catch (PDOException $ex){
+ echo "error: ";
+ die($ex->getMessage());
 }
 ?>
 
@@ -36,10 +37,10 @@ body{
 </head>
 <body>
 
-<form method="POST" action="">
+<form method="POST" onsubmit="return empty()" action="" name="form">
 <h1>make your poll</h1>
   <label>
-    <input type="text" placeholder="Type your question here" name=questionName>
+    <input type="text" placeholder="Type your question here" name="questionName">
   </label>
 
         <div id="pollOptions">
@@ -54,7 +55,7 @@ body{
         <button type="button" onclick="add()">add more option</button>
         <button type="button" onclick="remove()">remove more option</button>
           <br>
-          <input type="submit" name="create" id="">
+          <input type="submit"  name="create" id="">
       </form>
 
       <script>
@@ -79,6 +80,21 @@ body{
           alert("Atleast two option");
         }
 
+      }
+      function empty()
+      {
+        var questionName = document.forms["form"]["questionName"].value;
+        if (questionName=="" ){
+          alert('Must be write your question');
+          return false;
+        }
+        var op =document.getElementsByName("op[]");
+        for (let x in op)
+        {
+          if(op[x].value.trim()=="")
+          alert("answer");
+        }
+      
       }
       </script>
 
