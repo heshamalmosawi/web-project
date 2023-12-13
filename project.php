@@ -1,13 +1,41 @@
 <?php
-try{
-  require('connection.php');
-  $rs=$db->prepare("INSERT ")
-  $op = $_POST['op'];
-  print_r($op);
-}
-catch (PDOException $ex){
- echo "error: ";
- die($ex->getMessage());
+  
+  if (isset($_POST["create"])){
+  try{
+    $questionName = $_POST["questionName"];
+    $op = $_POST["op"];
+    print_r($op);
+
+    require('connection.php');
+    
+    $rs= $db->prepare("INSERT INTO questions(question,answer) VALUES(?,?)");
+    
+      $x = json_encode($op);
+      
+      $rs->bindParam(1, $questionName);
+      
+      $rs->bindParam(2, $x);
+      $rs->execute();
+      $db = null;
+
+      if($rs->rowCount() > 0){
+          echo "Inserted successfully";
+      } else {
+          die("There was an error");
+      }
+
+
+      
+
+
+    // $op = $_POST['op'];
+    // print_r($op);
+  }
+  catch (PDOException $ex){
+  echo "error: ";
+  die($ex->getMessage());
+  } 
+
 }
 ?>
 
