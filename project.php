@@ -10,7 +10,12 @@
     
     $rs= $db->prepare("INSERT INTO questions(question,answer) VALUES(?,?)");
     
-      $x = json_encode($op);
+      foreach ($op as $key){
+        $fixedArr[$key] = 0;
+      }
+
+      print_r($fixedArr);
+      // $x = json_encode($fixedArr);
       
       $rs->bindParam(1, $questionName);
       
