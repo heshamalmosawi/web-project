@@ -4,7 +4,7 @@
   try{
     $questionName = $_POST["questionName"];
     $op = $_POST["op"];
-    print_r($op);
+    // print_r($op);
 
     require('connection.php');
     
@@ -15,7 +15,7 @@
       }
 
       print_r($fixedArr);
-      // $x = json_encode($fixedArr);
+      $x = json_encode($fixedArr);
       
       $rs->bindParam(1, $questionName);
       
