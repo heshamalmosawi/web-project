@@ -1,3 +1,31 @@
+<?php 
+
+    $regex_username = '/^[a-z]{3,15}$/i';
+    $regex_email = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{3,10}\.[a-zA-Z]{2,4}$/';
+    $regex_password='/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9_#@%\*\-]{8,24}$/';
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') 
+    {
+        if (isset($_POST['signup']))
+        {
+            $Username = $_POST['username'];
+            $email = $_POST['email'];
+            $password=$_POST['password'];
+            if (!preg_match($regex_username, $Username)) {
+                echo "<script>alert('Invalid username for sign up.')</script>";
+            }elseif (!preg_match($regex_email,$email)){
+                echo "<script>alert('Invalid email for sign up.')</script>";
+            }elseif (!preg_match($regex_password,$password)){
+                echo "<script>alert('Invalid password for sign up.')</script>";
+            }
+            else 
+            {// 3dl 3la de
+                echo 'Sign up successful';
+            }
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,21 +90,21 @@ button:hover {
 
         <div class="form-container" id="login-container">
             <h2>Login</h2>
-            <form id="login-form" method="post" action="project.php">
+            <form id="login-form" method="post" action="">
                 <input type="text" placeholder="Username" required>
                 <input type="password" placeholder="Password" required>
                 <button type="submit">Login</button>
             </form>
-            Don't have an account? <a href="#" id="signin">sign in</a>
+            Don't have an account? <a href="#" id="signup">sign up</a>
         </div>
 
-        <div class="form-container" id="signin-container">
-            <h2>Signin</h2>
-            <form id="signin-form" method="post" action="project.php">
-                <input type="text" placeholder="Username" required>
-                <input type="password" placeholder="Password" required>
-                <input type="email" placeholder="Email" required>
-                <button type="submit" name="signin">Signin</button>
+        <div class="form-container" id="signup-container">
+            <h2>Sign up</h2>
+            <form id="signup-form" method="post" action="">
+                <input type="text" name='username' placeholder="Username" required>
+                <input type="password" name='password' placeholder="Password" required>
+                <input type="email" name='email' placeholder="Email" required>
+                <button type="submit" name="signup">Sign up</button>
             </form>
 
             Already have an account? <a href="#" id="login">login</a>
@@ -84,19 +112,19 @@ button:hover {
     </div>
 <script>
     document.getElementById('login-container').style.display = 'block';
-    document.getElementById('signin-container').style.display = 'none';
+    document.getElementById('signup-container').style.display = 'none';
 
     function showLoginForm() {
         document.getElementById('login-container').style.display = 'block';
-        document.getElementById('signin-container').style.display = 'none';
+        document.getElementById('signup-container').style.display = 'none';
     }
 
     function showSignupForm() {
         document.getElementById('login-container').style.display = 'none';
-        document.getElementById('signin-container').style.display = 'block';
+        document.getElementById('signup-container').style.display = 'block';
     }
 
-    document.getElementById('signin').addEventListener('click', function(e) {
+    document.getElementById('signup').addEventListener('click', function(e) {
         
         showSignupForm();
     });
@@ -106,5 +134,7 @@ button:hover {
         showLoginForm();
     });
 </script>
+
+
 </body>
 </html>
