@@ -13,7 +13,6 @@
       foreach ($op as $key){
         $fixedArr[$key] = 0;
       }
-
       // print_r($fixedArr);
       $x = json_encode($fixedArr);
       
@@ -64,7 +63,6 @@ body{
   border: 10px solid blue ;
   border-radius: 10px;
   margin:-20 0  ;
-
 }
   </style>
 </head>
