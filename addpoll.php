@@ -1,26 +1,33 @@
 <?php
-  
+  // if (!isset($_SESSION['activeUser'])){
+  //   die("please login!");
+  // }
   if (isset($_POST["create"])){
   try{
     $questionName = $_POST["questionName"];
     $op = $_POST["op"];
-    // print_r($op);
 
     require('connection.php');
     
-    $rs= $db->prepare("INSERT INTO questions(question,answer) VALUES(?,?)");
+    $rs= $db->prepare("INSERT INTO surveys(question, results, voters, expireDate, creater, status) VALUES(?,?,?,?,?)");
+    // this one is question name
+    $rs->bindParam(1, $questionName);
     
-      foreach ($op as $key){
-        $fixedArr[$key] = 0;
-      }
-      // print_r($fixedArr);
-      $x = json_encode($fixedArr);
-      
-      $rs->bindParam(1, $questionName);
-      
-      $rs->bindParam(2, $x);
-      $rs->execute();
-      $db = null;
+    // this is to store the options with results in json string, and initialize votes to 0
+    foreach ($op as $key){
+        $results[$key] = 0;
+    }
+    $resultsJ = json_encode($results);
+    $rs->bindParam(2, $resultsJ);
+    
+    // no voters yet
+    $voters = '[]';
+    $rs->bindParam(3, $voters);
+
+    // expired
+
+    $rs->execute();
+    $db = null;
 
       if($rs->rowCount() > 0){
           echo "Inserted successfully";
@@ -86,9 +93,16 @@ body{
         <button type="button" onclick="add()">add more option</button>
         <button type="button" onclick="remove()">remove more option</button>
           <br>
+          <div>
+            <p>How do you want to close poll?</p>
+            <input type="radio" id=automatic name=close>
+            <label for="automatic" onclick=showDates()>By Scheduled date</label>
+            <input type="radio" id=manual name=close>
+            <label for="manual">Manual</label>
+          </div>
           <input type="submit"  name="create" id="">
       </form>
-
+      
       <script>
           var optionCount= 2;
       function add() {
@@ -127,7 +141,11 @@ body{
         }
       
       }
-      </script>
+
+    function showDate(){
+      
+    }
+    </script>
 
 </body>
 </html>
