@@ -1,15 +1,19 @@
 <?php
-  // if (!isset($_SESSION['activeUser'])){
+  session_start();
+  // echo $_SESSION['activeuser'];
+  // if (!isset($_SESSION['activeuser'])){
   //   die("please login!");
   // }
   if (isset($_POST["create"])){
+    // if(!isset($_POST['close']))  {   echo "<script>alert('chose how to close poll')</script>";}
+    // else{
   try{
     $questionName = $_POST["questionName"];
     $op = $_POST["op"];
 
     require('connection.php');
     
-    $rs= $db->prepare("INSERT INTO surveys(question, results, voters, expireDate, creater, status) VALUES(?,?,?,?,?)");
+    $rs= $db->prepare("INSERT INTO surveys(question, results, voters, expireDate, creater, status) VALUES(?,?,?,?,?,?)");
     // this one is question name
     $rs->bindParam(1, $questionName);
     
@@ -24,8 +28,17 @@
     $voters = '[]';
     $rs->bindParam(3, $voters);
 
-    // expired 
+    // expire date depending on manual or scedhuled
+    if ($_POST['close'] == 'manual') {
+      $rs->bindValue(4, null);
+    } else {
+      $rs->bindParam(4, $_POST['dateExpiry']);
+    }
     
+    $rs->bindValue(5, 'Ali');
+
+    $rs->bindValue(6, 1);
+
     $rs->execute();
     $db = null;
 
@@ -42,6 +55,7 @@
   die($ex->getMessage());
   } 
 
+  // }
 }
 ?>
 
@@ -90,10 +104,10 @@ body{
           <br>
             <div>
               <p>How do you want to close the poll?</p>
-              <input type="radio" id="automatic" name="close" onchange="showOrHideDates()">
+              <input type="radio" id="automatic" name="close" value=automatic onchange="showOrHideDates()">
               <label for="automatic">By Scheduled date</label>
               <div id="DateE"></div>
-              <input type="radio" id="manual" name="close" onchange="showOrHideDates()">
+              <input type="radio" id="manual" value=manual name="close" onchange="showOrHideDates()">
               <label for="manual">Manual</label>
             </div>
 
@@ -156,7 +170,7 @@ function showOrHideDates() {
 
   if (automaticRadio.checked) {
     // Show the date input when "By Scheduled date" is selected
-    DateE.innerHTML = '<input type="date" min="' + currentDate + '">';
+    DateE.innerHTML = '<input name=dateExpiry value="'+currentDate+'" type="date" min="' + currentDate +'">';
   } else {
     // Hide the date input for other options
     DateE.innerHTML = "";
