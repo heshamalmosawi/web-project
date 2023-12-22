@@ -89,14 +89,14 @@ body{
            <input placeholder="Option 2" type="text" name=op[]>
           </label>
         </div>
-
+        
         <button type="button" onclick="add()">add more option</button>
         <button type="button" onclick="remove()">remove more option</button>
           <br>
           <div>
             <p>How do you want to close poll?</p>
-            <input type="radio" id=automatic name=close>
-            <label for="automatic" onclick=showDates()>By Scheduled date</label>
+            <input type="radio" id=automatic name="close" onclick="showDates()">
+            <label for="automatic" >By Scheduled date</label>
             <input type="radio" id=manual name=close>
             <label for="manual">Manual</label>
           </div>
@@ -142,8 +142,18 @@ body{
       
       }
 
-    function showDate(){
-      
+    function showDates(){
+      // Get the parent div where you want to append the date input
+      var parentDiv = document.getElementById('dateInputContainer');
+
+      // Create a new input element of type date
+      var dateInput = document.createElement('input');
+      dateInput.type = 'date';
+      dateInput.id = 'scheduledDate';
+      dateInput.name = 'scheduledDate';
+
+      // Append the date input to the parent div
+      parentDiv.appendChild(dateInput);
     }
     </script>
 
