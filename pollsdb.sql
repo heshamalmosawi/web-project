@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2023 at 06:27 PM
+-- Generation Time: Dec 21, 2023 at 04:40 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -24,14 +24,21 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `answers`
+-- Table structure for table `clients`
 --
 
-CREATE TABLE `answers` (
-  `id` int(10) NOT NULL,
-  `pollID` int(10) NOT NULL,
-  `answer` varchar(2557) NOT NULL
+CREATE TABLE `clients` (
+  `username` varchar(30) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `clients`
+--
+
+INSERT INTO `clients` (`username`, `email`, `password`) VALUES
+('zork', 'dawdaw@gsaeg.com', 'ZZqwertyy');
 
 -- --------------------------------------------------------
 
@@ -57,11 +64,10 @@ INSERT INTO `questions` (`id`, `question`, `answer`) VALUES
 --
 
 --
--- Indexes for table `answers`
+-- Indexes for table `clients`
 --
-ALTER TABLE `answers`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `pollID` (`pollID`);
+ALTER TABLE `clients`
+  ADD PRIMARY KEY (`username`);
 
 --
 -- Indexes for table `questions`
@@ -74,26 +80,10 @@ ALTER TABLE `questions`
 --
 
 --
--- AUTO_INCREMENT for table `answers`
---
-ALTER TABLE `answers`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `answers`
---
-ALTER TABLE `answers`
-  ADD CONSTRAINT `answers_ibfk_1` FOREIGN KEY (`pollID`) REFERENCES `questions` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
