@@ -1,9 +1,10 @@
 <?php
+require ("status.php");
   session_start();
-  // echo $_SESSION['activeuser'];
-  // if (!isset($_SESSION['activeuser'])){
-  //   die("please login!");
-  // }
+  echo $_SESSION['activeuser'];
+  if (!isset($_SESSION['activeuser'])){
+    die("please login!");
+  }
   if (isset($_POST["create"])){
     // if(!isset($_POST['close']))  {   echo "<script>alert('chose how to close poll')</script>";}
     // else{
@@ -30,12 +31,12 @@
 
     // expire date depending on manual or scedhuled
     if ($_POST['close'] == 'manual') {
-      $rs->bindValue(4, null);
+      $rs->bindValue(4, '');
     } else {
       $rs->bindParam(4, $_POST['dateExpiry']);
     }
     
-    $rs->bindValue(5, 'Ali');
+    $rs->bindValue(5, $_SESSION['activeuser']);
 
     $rs->bindValue(6, 1);
 
