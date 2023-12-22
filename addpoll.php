@@ -144,16 +144,24 @@ body{
       
       }
       function showOrHideDates() {
-  var automaticRadio = document.getElementById("automatic");
-  var DateE = document.getElementById("DateE");
+        var automaticRadio = document.getElementById("automatic");
+        var DateE = document.getElementById("DateE");
+        
+        const date = new date();
+        
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
 
-  if (automaticRadio.checked) {
-    // Show the date input when "By Scheduled date" is selected
-    DateE.innerHTML = '<input type="date">';
-  } else {
-    // Hide the date input for other options
-    DateE.innerHTML = "";
-  }
+        let currentDate = `${year}-${month}-${day}`;
+        console.log(currentDate);
+          if (automaticRadio.checked) {
+            // Show the date input when "By Scheduled date" is selected
+            DateE.innerHTML = '<input type="date" min="' + currentDate + '">';
+          } else {
+            // Hide the date input for other options
+            DateE.innerHTML = "";
+          }
 }
 
   
