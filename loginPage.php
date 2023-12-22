@@ -1,29 +1,47 @@
 <?php 
-
-    $regex_username = '/^[a-z]{3,15}$/i';
-    $regex_email = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{3,10}\.[a-zA-Z]{2,4}$/';
-    $regex_password='/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9_#@%\*\-]{8,24}$/';
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') 
+    try 
     {
-        if (isset($_POST['signup']))
+        require("connection.php");
+        $db->beginTransaction();
+
+        $regex_username = '/^[a-z]{3,15}$/i';
+        $regex_email = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{3,10}\.[a-zA-Z]{2,4}$/';
+        $regex_password='/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9_#@%\*\-]{8,24}$/';
+        $action = "#";
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') 
         {
-            $Username = $_POST['username'];
-            $email = $_POST['email'];
-            $password=$_POST['password'];
-            if (!preg_match($regex_username, $Username)) {
-                echo "<script>alert('Invalid username for sign up.')</script>";
-            }elseif (!preg_match($regex_email,$email)){
-                echo "<script>alert('Invalid email for sign up.')</script>";
-            }elseif (!preg_match($regex_password,$password)){
-                echo "<script>alert('Invalid password for sign up.')</script>";
-            }
-            else 
-            {// 3dl 3la de
-                echo 'Sign up successful';
+            if (isset($_POST['signup']))
+            {
+                $Username = $_POST['username'];
+                $email = $_POST['email'];
+                $password=$_POST['password'];
+                if (!preg_match($regex_username, $Username)) {
+                    echo "<script>alert('Invalid username for sign up.')</script>";
+                }elseif (!preg_match($regex_email,$email)){
+                    echo "<script>alert('Invalid email for sign up.')</script>";
+                }elseif (!preg_match($regex_password,$password)){
+                    echo "<script>alert('Invalid password for sign up.')</script>";
+                }
+                else 
+                {// 3dl 3la de
+                    echo 'Sign up successful';
+                    $action = "addpoll.php";
+                    $passH =password_hash("awedawe", PASSWORD_DEFAULT);
+                    $stmt = $db->prepare("INSERT INTO users (Username,Email,Password,pollsCreated) VALUES ('$Username','$email','$passH','[]')");
+                    $stmt->execute();
+                   
+                }
             }
         }
-    }
+    
+        
+        $db->commit();
+        $db = null;
+    }  catch (PDOException $ex){
+        $db->rollBack();
+        echo "error: ";
+        die($ex->getMessage());
+        } 
 ?>
 
 <!DOCTYPE html>
@@ -100,7 +118,7 @@ button:hover {
 
         <div class="form-container" id="signup-container">
             <h2>Sign up</h2>
-            <form id="signup-form" method="post" action="">
+            <form id="signup-form" method="post" action="<?php echo $action; ?>">
                 <input type="text" name='username' placeholder="Username" required>
                 <input type="password" name='password' placeholder="Password" required>
                 <input type="email" name='email' placeholder="Email" required>
