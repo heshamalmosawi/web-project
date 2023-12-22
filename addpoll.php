@@ -34,11 +34,6 @@
       } else {
           die("There was an error");
       }
-
-
-      
-
-
     // $op = $_POST['op'];
     // print_r($op);
   }
@@ -167,11 +162,7 @@ function showOrHideDates() {
     DateE.innerHTML = "";
   }
 }
-
-
-
-  
-    </script>
+</script>
 
 </body>
 </html>
