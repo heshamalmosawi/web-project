@@ -23,11 +23,12 @@
                 echo '<h2>Sign up successful Please login</h2>';
                 try{
                     require('connection.php');#tableName is clients within the same DB & username is PK
-                    $rs =$db->prepare("INSERT INTO clients(username,password,email) VALUES(?,?,?)");
+                    $rs =$db->prepare("INSERT INTO users(Username, email, password, pollsCreated) VALUES(?,?,?,?)");
               
                     $rs->bindParam(1, $username);
                     $rs->bindParam(2, $password);
                     $rs->bindParam(3, $email);
+                    $rs->bindValue(4, '[]');
                     $rs->execute();
                     $db = null;
               
@@ -44,7 +45,7 @@
             $password = $_POST['password'];
             try {
                 require('connection.php');
-                $rs = $db->prepare("SELECT username, password FROM clients WHERE username = ?");
+                $rs = $db->prepare("SELECT Username, password FROM users WHERE Username = ?");
                 $rs->bindParam(1, $username);
                 $rs->execute();
                 $row = $rs->fetch(PDO::FETCH_ASSOC);

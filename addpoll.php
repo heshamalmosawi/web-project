@@ -24,16 +24,16 @@
     $voters = '[]';
     $rs->bindParam(3, $voters);
 
-    // expired
-
+    // expired 
+    
     $rs->execute();
     $db = null;
 
-      if($rs->rowCount() > 0){
-          echo "Inserted successfully";
-      } else {
-          die("There was an error");
-      }
+      // if($rs->rowCount() > 0){
+      //     echo "Inserted successfully";
+      // } else {
+      //     die("There was an error");
+      // }
     // $op = $_POST['op'];
     // print_r($op);
   }
