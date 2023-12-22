@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2023 at 04:40 PM
+-- Generation Time: Dec 21, 2023 at 08:41 PM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.0.28
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,66 +24,72 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `clients`
+-- Table structure for table `surveys`
 --
 
-CREATE TABLE `clients` (
-  `username` varchar(30) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(255) NOT NULL
+CREATE TABLE `surveys` (
+  `id` int(10) NOT NULL,
+  `question` varchar(200) NOT NULL,
+  `results` varchar(510) NOT NULL,
+  `voters` text NOT NULL,
+  `expireDate` date NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `creater` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `clients`
+-- Dumping data for table `surveys`
 --
 
-INSERT INTO `clients` (`username`, `email`, `password`) VALUES
-('zork', 'dawdaw@gsaeg.com', 'ZZqwertyy');
+INSERT INTO `surveys` (`id`, `question`, `results`, `voters`, `expireDate`, `status`, `creater`) VALUES
+(1, 'What is your car?', '{\'Nissan\'=>5, \'Toyota\'=>3}', '{\'loay\'}', '2023-12-29', 1, 'loay');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `questions`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `questions` (
-  `id` int(10) NOT NULL,
-  `question` varchar(255) NOT NULL,
-  `answer` varchar(3000) NOT NULL
+CREATE TABLE `users` (
+  `Username` varchar(15) NOT NULL,
+  `Email` varchar(35) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `pollsCreated` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `questions`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `questions` (`id`, `question`, `answer`) VALUES
-(16, 'test', '[\"aaa\",\"bbb\"]');
+INSERT INTO `users` (`Username`, `Email`, `password`, `pollsCreated`) VALUES
+('loay123', 'loay@gmail.com', '$2y$10$.vGA1O9wmRjrwAVXD98HNOgsNpDczlqm3Jq7KnEd1rVAGv3Fykk1a \r\n', '[1]');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `clients`
+-- Indexes for table `surveys`
 --
-ALTER TABLE `clients`
-  ADD PRIMARY KEY (`username`);
+ALTER TABLE `surveys`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `questions`
+-- Indexes for table `users`
 --
-ALTER TABLE `questions`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`Username`),
+  ADD UNIQUE KEY `Email` (`Email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `questions`
+-- AUTO_INCREMENT for table `surveys`
 --
-ALTER TABLE `questions`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+ALTER TABLE `surveys`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,0 +1,51 @@
+.container
+{
+width: 1024px;
+background-color: red;
+min-height: 300px;
+margin-left: auto;
+margin-right: auto;
+}
+
+header
+{
+background-color: blue;
+min-height: 100px;
+}
+
+main
+{
+background-color: green;
+min-height: 300px;
+}
+
+.card
+{
+    background-color: bisque;
+    min-height: 300px;
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.card1
+{
+    background-color: whitesmoke;
+    min-height: 300px;
+    width: 30%;
+}
+
+.card2
+{
+    background-color: black;
+    min-height: 300px;
+    width: 30%;
+}
+
+.card3
+{
+    background-color: fuchsia;
+    min-height: 300px;
+    width: 30%;
+}

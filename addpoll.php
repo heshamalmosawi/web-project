@@ -1,10 +1,21 @@
 <?php
-  
+
+  #for login data 
+  if (isset($_POST['login'])){
+
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    
+    echo "<h2>(via login) welcome ". $username ."</h2>";
+
+
+
+  }
+
   if (isset($_POST["create"])){
   try{
     $questionName = $_POST["questionName"];
     $op = $_POST["op"];
-    // print_r($op);
 
     require('connection.php');
     
@@ -13,7 +24,6 @@
       foreach ($op as $key){
         $fixedArr[$key] = 0;
       }
-
       // print_r($fixedArr);
       $x = json_encode($fixedArr);
       
@@ -29,10 +39,6 @@
           die("There was an error");
       }
 
-
-      
-
-
     // $op = $_POST['op'];
     // print_r($op);
   }
@@ -42,6 +48,8 @@
   } 
 
 }
+
+
 ?>
 
 <head>
@@ -64,7 +72,6 @@ body{
   border: 10px solid blue ;
   border-radius: 10px;
   margin:-20 0  ;
-
 }
   </style>
 </head>
