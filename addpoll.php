@@ -93,13 +93,15 @@ body{
         <button type="button" onclick="add()">add more option</button>
         <button type="button" onclick="remove()">remove more option</button>
           <br>
-          <div>
-            <p>How do you want to close poll?</p>
-            <input type="radio" id=automatic name="close" onclick="showDates()">
-            <label for="automatic" >By Scheduled date</label>
-            <input type="radio" id=manual name=close>
-            <label for="manual">Manual</label>
-          </div>
+            <div>
+              <p>How do you want to close the poll?</p>
+              <input type="radio" id="automatic" name="close" onchange="showOrHideDates()">
+              <label for="automatic">By Scheduled date</label>
+              <div id="DateE"></div>
+              <input type="radio" id="manual" name="close" onchange="showOrHideDates()">
+              <label for="manual">Manual</label>
+            </div>
+
           <input type="submit"  name="create" id="">
       </form>
       
@@ -141,20 +143,20 @@ body{
         }
       
       }
+      function showOrHideDates() {
+  var automaticRadio = document.getElementById("automatic");
+  var DateE = document.getElementById("DateE");
 
-    function showDates(){
-      // Get the parent div where you want to append the date input
-      var parentDiv = document.getElementById('dateInputContainer');
+  if (automaticRadio.checked) {
+    // Show the date input when "By Scheduled date" is selected
+    DateE.innerHTML = '<input type="date">';
+  } else {
+    // Hide the date input for other options
+    DateE.innerHTML = "";
+  }
+}
 
-      // Create a new input element of type date
-      var dateInput = document.createElement('input');
-      dateInput.type = 'date';
-      dateInput.id = 'scheduledDate';
-      dateInput.name = 'scheduledDate';
-
-      // Append the date input to the parent div
-      parentDiv.appendChild(dateInput);
-    }
+  
     </script>
 
 </body>
