@@ -15,8 +15,8 @@ try {
         echo "<div id=" . $i . " class='allQ' onclick='show(" . $i . ','. $date. ")'> <a href='#'>" . $fet[$i]['question']. "</a> </div>";
     }
 
-  
-  
+    $result =json_decode($fet[0]["results"],true);
+    
 
     
 
@@ -39,14 +39,14 @@ try {
 
         resultpoll.innerHTML = "<div class='poll-container'>" +
             "<div class='poll-info'>Question: " + <?php echo json_encode($fet); ?>[id]["question"] + "</div>" +
-            <?php $result= json_decode($fet); ?>[id]["results"] +
+            
             "<div class='poll-info'>Results:<?php
               foreach ($result as $key => $value)
                {
                   echo  "<br>".$value."% " ;
         
                      echo "<progress  value='$value' max='100'></progress> $key";} ?> </div>"   +
-           
+                   
             "<div class='poll-info ' id='Expire'>Expire Date: " + <?php echo json_encode($fet); ?>[id]["expireDate"] + "</div>" +
             "<div class='poll-info'>Status: " + <?php echo json_encode($fet); ?>[id]["status"] + "</div>" + 
             "</div>";
