@@ -3,7 +3,7 @@
     $regex_username = '/^[a-z]{3,15}$/i';
     $regex_email = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{3,10}\.[a-zA-Z]{2,4}$/';
     $regex_password='/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9_#@%\*\-]{8,24}$/';
-
+    $action ='#';
     if ($_SERVER['REQUEST_METHOD'] === 'POST') 
     {
         if (isset($_POST['signin']))
@@ -26,8 +26,9 @@
                     $rs =$db->prepare("INSERT INTO users(Username, email, password, pollsCreated) VALUES(?,?,?,?)");
               
                     $rs->bindParam(1, $username);
-                    $rs->bindParam(2, $password);
-                    $rs->bindParam(3, $email);
+                    $rs->bindParam(2, $email);
+                    $pword=password_hash($password, PASSWORD_DEFAULT);
+                    $rs->bindParam(3, $pword);
                     $rs->bindValue(4, '[]');
                     $rs->execute();
                     $db = null;
@@ -50,8 +51,12 @@
                 $rs->execute();
                 $row = $rs->fetch(PDO::FETCH_ASSOC);
                 
+
                 if ($row && password_verify($password, $row['password'])) {
                     echo '<h2>Login successful</h2>';
+                    session_start();
+                    $_SESSION['activeuser']= $username;
+                    $action="addpoll.php";
                     // Redirect or perform other actions after successful login
                 } else {
                     echo "<script>alert('Invalid login credentials.')</script>";
@@ -130,7 +135,7 @@ button:hover {
 
     <div class="form-container" id="login-container">
         <h2>Login</h2>
-        <form id="login-form" method="post" action="addpoll.php">
+        <form id="login-form" method="post" action="<?php echo $action;?>">
 
             <input type="text" placeholder="Username" name="username" required>
             <input type="password" placeholder="Password" name="password" required>
