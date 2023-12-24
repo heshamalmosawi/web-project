@@ -1,4 +1,39 @@
-<!DOCTYPE html>
+<?php 
+    if (isset($_POST['close'])){
+        $id = $_POST['id'];
+        
+
+        try{
+            require('connection.php');
+            $rs = $db->prepare("UPDATE surveys SET status = 0, expireDate = ? WHERE id = ?");
+            
+            $rs->bindValue(1,"0000-00-00");
+            $rs->bindParam(2, $id);
+            $rs->execute();
+            $db = null;
+        } catch (PDOException $ex){
+            echo "Error: " . $ex->getMessage();
+        } 
+    }
+
+    if (isset($_POST['open'])){
+        $id = $_POST['id'];
+        $date = $_POST['date'];
+
+        try{
+            require('connection.php');
+            $rs = $db->prepare("UPDATE surveys SET status = 1, expireDate = ? WHERE id = ?");
+            
+            $rs->bindParam(1, $date);
+            $rs->bindParam(2, $id);
+            $rs->execute();
+            $db = null;
+        } catch (PDOException $ex){
+            echo "Error: " . $ex->getMessage();
+        } 
+    }
+?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -43,8 +78,20 @@
         echo "<div class='poll-info'>Voters: " . $row["voters"] . "</div>";
         echo "<div class='poll-info'>Expire Date: " . $row["expireDate"] . "</div>";
         echo "<div class='poll-info'>Status: " . $row["status"] . "</div>";
+       
+        echo "<form method='post' action=''>";
+            echo "<input type='hidden' name='id' value='" . $row["id"] . "' />";
+            if ($row["status"] == 1)
+                echo "<input type='submit' name='close' value='close'> ";
+            else {
+                echo "New Expire Date:  <input type='date' name='date'> ";
+                echo "<input type='submit' name='open' value='open'>";
+            }
+        
+        echo "</form>";
         echo "</div>";
     }
+    echo "<a href = 'addpoll.php'>add more ?</a>"
     ?>
 </body>
 </html>
