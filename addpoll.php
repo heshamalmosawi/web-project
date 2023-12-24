@@ -1,60 +1,62 @@
 <?php
 require ("status.php");
   session_start();
-  echo $_SESSION['activeuser'];
+  echo "Welcome ".$_SESSION['activeuser'];
   if (!isset($_SESSION['activeuser'])){
     die("please login!");
   }
   if (isset($_POST["create"])){
     // if(!isset($_POST['close']))  {   echo "<script>alert('chose how to close poll')</script>";}
     // else{
-  try{
-    $questionName = $_POST["questionName"];
-    $op = $_POST["op"];
+    try{
+      $questionName = $_POST["questionName"];
+      $op = $_POST["op"];
 
-    require('connection.php');
+      require('connection.php');
+      
+      $rs= $db->prepare("INSERT INTO surveys(question, results, voters, expireDate, creater, status) VALUES(?,?,?,?,?,?)");
+      // this one is question name
+      $rs->bindParam(1, $questionName);
+      
+      // this is to store the options with results in json string, and initialize votes to 0
+      foreach ($op as $key){
+          $results[$key] = 0;
+      }
+      $resultsJ = json_encode($results);
+      $rs->bindParam(2, $resultsJ);
+      
+      // no voters yet
+      $voters = '[]';
+      $rs->bindParam(3, $voters);
+
+      // expire date depending on manual or scedhuled
+      if ($_POST['close'] == 'manual') {
+        $rs->bindValue(4, '');
+      } else {
+        $rs->bindParam(4, $_POST['dateExpiry']);
+      }
+      
+      $rs->bindValue(5, $_SESSION['activeuser']);
+
+      $rs->bindValue(6, 1);
+
+      $rs->execute();
+      
+      #update the users table for the pollsCreated
+      $pollsCreatedStmt = $db->prepare("UPDATE users SET pollsCreated = pollsCreated + 1 WHERE Username = ?");
+      $pollsCreatedStmt->bindValue(1, $_SESSION['activeuser']);
+      $pollsCreatedStmt->execute();
+
+      $db = null;
+      
+      header("Location:userpolls.php"); #for redirecting to addpoll.php
+      exit;
+
+    }catch (PDOException $ex){
+      echo "error: ";
+      die($ex->getMessage());
+      } 
     
-    $rs= $db->prepare("INSERT INTO surveys(question, results, voters, expireDate, creater, status) VALUES(?,?,?,?,?,?)");
-    // this one is question name
-    $rs->bindParam(1, $questionName);
-    
-    // this is to store the options with results in json string, and initialize votes to 0
-    foreach ($op as $key){
-        $results[$key] = 0;
-    }
-    $resultsJ = json_encode($results);
-    $rs->bindParam(2, $resultsJ);
-    
-    // no voters yet
-    $voters = '[]';
-    $rs->bindParam(3, $voters);
-
-    // expire date depending on manual or scedhuled
-    if ($_POST['close'] == 'manual') {
-      $rs->bindValue(4, '');
-    } else {
-      $rs->bindParam(4, $_POST['dateExpiry']);
-    }
-    
-    $rs->bindValue(5, $_SESSION['activeuser']);
-
-    $rs->bindValue(6, 1);
-
-    $rs->execute();
-    $db = null;
-
-      // if($rs->rowCount() > 0){
-      //     echo "Inserted successfully";
-      // } else {
-      //     die("There was an error");
-      // }
-    // $op = $_POST['op'];
-    // print_r($op);
-  }
-  catch (PDOException $ex){
-  echo "error: ";
-  die($ex->getMessage());
-  } 
 
   // }
 }
