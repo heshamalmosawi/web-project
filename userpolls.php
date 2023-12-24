@@ -1,37 +1,34 @@
-<?php 
-    if (isset($_POST['close'])){
-        $id = $_POST['id'];
-        
+<?php
+if (isset($_POST['close'])) {
+    $id = $_POST['id'];
 
-        try{
-            require('connection.php');
-            $rs = $db->prepare("UPDATE surveys SET status = 0, expireDate = ? WHERE id = ?");
-            
-            $rs->bindValue(1,"0000-00-00");
-            $rs->bindParam(2, $id);
-            $rs->execute();
-            $db = null;
-        } catch (PDOException $ex){
-            echo "Error: " . $ex->getMessage();
-        } 
+    try {
+        require('connection.php');
+        $rs = $db->prepare("UPDATE surveys SET status = 0, expireDate = ? WHERE id = ?");
+        $rs->bindValue(1, "0000-00-00");
+        $rs->bindParam(2, $id);
+        $rs->execute();
+        $db = null;
+    } catch (PDOException $ex) {
+        echo "Error: " . $ex->getMessage();
     }
+}
 
-    if (isset($_POST['open'])){
-        $id = $_POST['id'];
-        $date = $_POST['date'];
+if (isset($_POST['open'])) {
+    $id = $_POST['id'];
+    $date = $_POST['date'];
 
-        try{
-            require('connection.php');
-            $rs = $db->prepare("UPDATE surveys SET status = 1, expireDate = ? WHERE id = ?");
-            
-            $rs->bindParam(1, $date);
-            $rs->bindParam(2, $id);
-            $rs->execute();
-            $db = null;
-        } catch (PDOException $ex){
-            echo "Error: " . $ex->getMessage();
-        } 
+    try {
+        require('connection.php');
+        $rs = $db->prepare("UPDATE surveys SET status = 1, expireDate = ? WHERE id = ?");
+        $rs->bindParam(1, $date);
+        $rs->bindParam(2, $id);
+        $rs->execute();
+        $db = null;
+    } catch (PDOException $ex) {
+        echo "Error: " . $ex->getMessage();
     }
+}
 ?>
 
 <html lang="en">
@@ -41,17 +38,59 @@
     <title>User Polls</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
         }
+
+        h2 {
+            color: #007BFF;
+        }
+
         .poll-container {
             border: 1px solid #ccc;
             padding: 10px;
             margin-bottom: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
         }
+
         .poll-info {
             font-weight: bold;
             margin-bottom: 5px;
+        }
+
+        .button-container {
+            margin-top: 10px;
+        }
+
+        input[type='submit'] {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type='date'] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -61,7 +100,7 @@
     if (!isset($_SESSION['activeuser'])) {
         die("Please login!");
     }
-    echo "<h2>Welcome " . $_SESSION['activeuser'] . " these are your polls !</h2>";
+    echo "<h2>Welcome " . $_SESSION['activeuser'] . ", these are your polls!</h2>";
 
     require('connection.php');
 
@@ -78,20 +117,23 @@
         echo "<div class='poll-info'>Voters: " . $row["voters"] . "</div>";
         echo "<div class='poll-info'>Expire Date: " . $row["expireDate"] . "</div>";
         echo "<div class='poll-info'>Status: " . $row["status"] . "</div>";
-       
+
         echo "<form method='post' action=''>";
-            echo "<input type='hidden' name='id' value='" . $row["id"] . "' />";
-            if ($row["status"] == 1)
-                echo "<input type='submit' name='close' value='close'> ";
-            else {
-                echo "New Expire Date:  <input type='date' name='date'> ";
-                echo "<input type='submit' name='open' value='open'>";
-            }
-        
+        echo "<input type='hidden' name='id' value='" . $row["id"] . "' />";
+        if ($row["status"] == 1) {
+            echo "<div class='button-container'><input type='submit' name='close' value='Close Poll'></div>";
+        } else {
+            echo "<div class='button-container'>";
+            echo "<input type='date' name='date' required>";
+            echo "<input type='submit' name='open' value='Open Poll'>";
+            echo "</div>";
+        }
+
         echo "</form>";
         echo "</div>";
     }
-    echo "<a href = 'addpoll.php'>add more ?</a>"
+
+    echo "<a href='addpoll.php'>Add More Polls?</a>";
     ?>
 </body>
 </html>
