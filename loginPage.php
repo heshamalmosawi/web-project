@@ -22,7 +22,7 @@
             {
                 echo '<h2>Sign up successful Please login</h2>';
                 try{
-                    require('connection.php');#tableName is clients within the same DB & username is PK
+                    require('connection.php');
                     $rs =$db->prepare("INSERT INTO users(Username, email, password, pollsCreated) VALUES(?,?,?,?)");
               
                     $rs->bindParam(1, $username);
@@ -53,11 +53,15 @@
                 
 
                 if ($row && password_verify($password, $row['password'])) {
-                    echo '<h2>Login successful</h2>';
+                    echo '<h2>Login successful</h2>';#no need for it, it will redirect to the page, this won't show up
                     session_start();
                     $_SESSION['activeuser']= $username;
                     $action="addpoll.php";
                     // Redirect or perform other actions after successful login
+
+                    header("Location:$action"); #for redirecting to addpoll.php
+                    exit;
+
                 } else {
                     echo "<script>alert('Invalid login credentials.')</script>";
                 }
@@ -185,5 +189,3 @@ button:hover {
 </script>
 </body>
 </html>
-message.txt
-6 KB
