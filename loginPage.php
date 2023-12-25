@@ -86,7 +86,7 @@
     <div class="container1">
         <header>
             <div class="logo">
-                <a href="index.html">
+                <a href="index1.html">
                     <img src="images/logo2-removebg-preview.png " width="100px" height="100px" alt="Logo for Bike Repair shop Roar Bikes">
                 </a>
             </div>
