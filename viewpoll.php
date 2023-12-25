@@ -9,6 +9,7 @@ exit();
 
 $id=$_GET['id'];
 require('connection.php');
+require('status.php');
 $rs= $db->query('SELECT * FROM surveys');
 $rows = $rs->fetchAll(PDO::FETCH_ASSOC);
 
@@ -48,6 +49,7 @@ try
         if ($isvote)
         {   
             echo "<div class='poll-container'>";
+            echo "<div class='poll-info'>Creater:".$row["creater"]. "</div>";
             echo "<div class='poll-info'>Question: " . $row["question"] . "</div>";
             echo "<div class='poll-info'>Results: ";
             foreach ($result as $key => $value){
@@ -58,7 +60,7 @@ try
             
                 if ($row["expireDate"] !="0000-00-00")
                 echo "<div class='poll-info'>Expire Date: " . $row["expireDate"] . "</div>";
-            
+                
                 if ($row["status"]==0)
                 echo "<div class='poll-info'>Status:Close</div>";
                 else 
@@ -67,6 +69,7 @@ try
         }else 
         {
             echo "<div class='poll-container'>";
+            echo "<div class='poll-info'>Creater:".$row["creater"]. "</div>";
             echo "<div class='poll-info'>Question: " . $row["question"] . "</div>";
             echo "<div class='poll-info'>votes:<br> ";
             echo "<form method='POST' action=''>";
