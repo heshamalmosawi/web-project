@@ -2,27 +2,28 @@
 
     $regex_username = '/^[a-z]{3,15}$/i';
     $regex_email = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{3,10}\.[a-zA-Z]{2,4}$/';
-    $regex_password='/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9_#@%\*\-]{8,24}$/';
+    $regex_password='/^(?=.*[A-Z])(?=.*[a-z])(?=.*[_#@$%\*\-])(?=.*[0-9])[A-Za-z0-9_#@%\*\-]{8,24}$/';
     $action ='#';
     if ($_SERVER['REQUEST_METHOD'] === 'POST') 
     {
-        if (isset($_POST['signin']))
+        if (isset($_POST['signup']))
         {
             $username = $_POST['username'];
             $email = $_POST['email'];
             $password=$_POST['password'];
             if (!preg_match($regex_username, $username)) {
-                echo "<script>alert('Invalid username for sign in.')</script>";
+                echo "<script>alert('Invalid username. Must be between 3 and 15 characters.')</script>";
             }elseif (!preg_match($regex_email,$email)){
-                echo "<script>alert('Invalid email for sign in.')</script>";
+                echo "<script>alert('Email taken. Please try again!')</script>";
             }elseif (!preg_match($regex_password,$password)){
-                echo "<script>alert('Invalid password for sign in.( need at least 8 characters)')</script>";
+                echo "<script>alert('Weak password. Must contain: Atleast 8 characters (including one lower and upper case), a digit and a special character(_#@%\*\-)')</script>";
             }
             else 
             {
-                echo '<h2>Sign up successful Please login</h2>';
+                echo '<script>alert("Sign up successful. Please login.")</script>';
                 try{
                     require('connection.php');
+                    $db->beginTransaction();
                     $rs =$db->prepare("INSERT INTO users(Username, email, password, pollsCreated) VALUES(?,?,?,?)");
               
                     $rs->bindParam(1, $username);
@@ -31,9 +32,11 @@
                     $rs->bindParam(3, $pword);
                     $rs->bindValue(4, '[]');
                     $rs->execute();
+
+                    $db->commit();
                     $db = null;
-              
                   } catch (PDOException $ex){
+                    $db->rollBack();
                     echo "error: ";
                     die($ex->getMessage());
                     }
@@ -46,6 +49,7 @@
             $password = $_POST['password'];
             try {
                 require('connection.php');
+                $db->beginTransaction();
                 $rs = $db->prepare("SELECT Username, password FROM users WHERE Username = ?");
                 $rs->bindParam(1, $username);
                 $rs->execute();
@@ -65,7 +69,7 @@
                 } else {
                     echo "<script>alert('Invalid login credentials.')</script>";
                 }
-    
+                $db->commit();
                 $db = null;
             } catch (PDOException $ex) {
                 echo "error: ";
@@ -87,7 +91,7 @@
         <header>
             <div class="logo">
                 <a href="index1.html">
-                    <img src="images/logo2-removebg-preview.png " width="100px" height="100px" alt="Logo for Bike Repair shop Roar Bikes">
+                    <img src="images/logo2-removebg-preview.png " width="100px" height="100px">
                 </a>
             </div>
 
@@ -200,19 +204,19 @@ button {
                 <input type="password" placeholder="Password" name="password" required>
                 <button type="submit" name="login">Login</button>
             </form>
-            <div style="margin: 5px; text-align: center; border-radius: 5px; background-color: lightgray;"> Don't have an account? <a href="#" id="signin"><b style="color: red;">sign in</b></a></div>
+            <div style="margin: 5px; text-align: center; border-radius: 5px; background-color: lightgray;"> Don't have an account? <a href="#" id="signup"><b style="color: red;">sign up</b></a></div>
         </div>
 
-        <div class="form-container" id="signin-container">
+        <div class="form-container" id="signup-container">
            
-            <form id="signin-form" method="post" action="">
+            <form id="signup-form" method="post" action="">
 
                 <p>Suggestions: <span id="txtHint"></span></p>
-                <p>email test: <span id ="emailv"></span></p>
                 <input type="text" placeholder="Username" name="username" required onkeyup ="showHint(this.value)">
                 <input type="text" placeholder="Email"  name="email" required onkeyup="emailV(this.value)">
+                <span id ="emailv"></span>
                 <input type="password" placeholder="Password" name="password" required>
-                <button type="submit" name="signin" id="signin-button">Signin</button>
+                <button type="submit" name="signup" id="signup-button">signup</button>
 
             </form>
             <div style="margin: 5px; text-align: center; border-radius: 5px; background-color: lightgray;" >Already have an account? <a href="#" id="login"><b style="color: red;">login</b></a></div>
@@ -220,19 +224,19 @@ button {
     </div>
 <script>
     document.getElementById('login-container').style.display = 'block';
-    document.getElementById('signin-container').style.display = 'none';
+    document.getElementById('signup-container').style.display = 'none';
 
     function showLoginForm() {
     document.getElementById('login-container').style.display = 'block';
-    document.getElementById('signin-container').style.display = 'none';
+    document.getElementById('signup-container').style.display = 'none';
     }
 
     function showSignupForm() {
     document.getElementById('login-container').style.display = 'none';
-    document.getElementById('signin-container').style.display = 'block';
+    document.getElementById('signup-container').style.display = 'block';
     }
 
-    document.getElementById('signin').addEventListener('click', function(e) {
+    document.getElementById('signup').addEventListener('click', function(e) {
 
     showSignupForm();
     });
@@ -260,7 +264,7 @@ button {
         function emailV(str) {
     if (str.length == 0) {
         document.getElementById("emailv").innerHTML = "";
-        enableSigninButton();
+        enablesignupButton();
         return;
     }
 
@@ -274,23 +278,26 @@ button {
 
 function handleEmailValidation(response) {
     var emailvMessage = document.getElementById("emailv");
-    var signinButton = document.getElementById("signin-button");
+    var signupButton = document.getElementById("signup-button");
 
     if (response.trim() === "true") {
         emailvMessage.innerHTML = "Email already exists!";
-        disableSigninButton();
+        emailvMessage.style.color = "red";
+        emailvMessage.style.fontWeight = "bold";
+        disablesignupButton();
     } else {
         emailvMessage.innerHTML = "";
-        enableSigninButton();
+        emailvMessage.style.color = "black";
+        enablesignupButton();
     }
 }
 
-function disableSigninButton() {
-    document.getElementById("signin-button").disabled = true;
+function disablesignupButton() {
+    document.getElementById("signup-button").disabled = true;
 }
 
-function enableSigninButton() {
-    document.getElementById("signin-button").disabled = false;
+function enablesignupButton() {
+    document.getElementById("signup-button").disabled = false;
 }
 
 

@@ -1,3 +1,24 @@
+
+<body>
+<header>
+            <div class="logo">
+                <a href="index1.html">
+                    <img src="images/logo2-removebg-preview.png " width="100px" height="100px" alt="Logo for Bike Repair shop Roar Bikes">
+                </a>
+            </div>
+
+            <nav>
+
+
+            
+                <div class="navbutton">
+                    <a href="index1.html">Home</a>
+                </div>
+
+
+            </nav>
+        </header>
+
 <?php
 try {
     session_start();
@@ -6,76 +27,92 @@ try {
     $rs = $db->query('SELECT * FROM surveys');
 
     $fet = $rs->fetchAll(PDO::FETCH_ASSOC);
+    echo "<div class=allq>";
     foreach ($fet as $row){
         extract($row);
-        echo "<a href='viewpoll.php?id=$id'>$question</a>"   ;
-       
-
+        echo "<a class='poll-link' href='viewpoll.php?id=$id'>
+                <div class='poll-container'>
+                    <div class='poll-info'>$question</div>
+                </div>
+            </a>";
     }    
-
-
-
-
+    echo "</div>";
   
 } catch (PDOException $e) {
     die($e->getMessage());
 }
 ?>
 <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-            color: #333;
-        }
+  html {
+    background-image: linear-gradient(rgb(193, 191, 241), rgb(165, 109, 105));
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid lightgrey;
+    margin:0 auto;
+    width:1024px;
+}
+body {
+    background-image: url(images/logo2-removebg-preview.png) ;
+    background-position:center; 
+    background-repeat: no-repeat;
+     font-family: 'Roboto', sans-serif;
+    font-size: 1.125rem;
+}
+.container {
+    width: 1024px;
+    min-height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.allq{
+    margin:0 auto;
+    width:1024px;
+}
 
-        h2 {
-            color: #007BFF;
-        }
+.navbutton {
+    border: 1px solid white;
+    padding: 11px 25px;
+    font-family: 'Playfair Display', serif;
+    display: inline-block;
+    position: relative;
+}
+    
 
-        .poll-container {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-        }
+    a {
+        color: white;
+        text-decoration: none;
+    }
 
-        .poll-info {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
+    .poll-link {
+        display: block;
+        margin-top: 10px;
+        color: #007BFF;
+        text-decoration: none;
+    }
 
-        .button-container {
-            margin-top: 10px;
-        }
+    .poll-link:hover {
+        text-decoration: underline;
+    }
 
-        input[type='submit'] {
-            background-color: #007BFF;
-            color: #fff;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+    .poll-container {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px #007BFF;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        
+    }
 
-        input[type='date'] {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-right: 10px;
-        }
-
-        a {
-            display: inline-block;
-            margin-top: 10px;
-            color: #007BFF;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-
+    .poll-info {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+</style>

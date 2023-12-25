@@ -1,65 +1,48 @@
-<?php
-require("status.php");
-session_start();
-echo "<div class='o1'>Welcome " . $_SESSION['activeuser'] . "</div>";
-if (!isset($_SESSION['activeuser'])) {
-    die("<div class='o1'>Please login!</div>");
-}
-if (isset($_POST["create"])) {
-    try {
-        $questionName = $_POST["questionName"];
-        $op = $_POST["op"];
-
-        require('connection.php');
-
-        $rs = $db->prepare("INSERT INTO surveys(question, results, voters, expireDate, creater, status) VALUES(?,?,?,?,?,?)");
-        $rs->bindParam(1, $questionName);
-
-        foreach ($op as $key) {
-            $results[$key] = 0;
-        }
-        $resultsJ = json_encode($results);
-        $rs->bindParam(2, $resultsJ);
-
-        $voters = '[]';
-        $rs->bindParam(3, $voters);
-
-        if ($_POST['close'] == 'manual') {
-            $rs->bindValue(4, '');
-        } else {
-            $rs->bindParam(4, $_POST['dateExpiry']);
-        }
-
-        $rs->bindValue(5, $_SESSION['activeuser']);
-        $rs->bindValue(6, 1);
-        $rs->execute();
-
-        $pollsCreatedStmt = $db->prepare("UPDATE users SET pollsCreated = pollsCreated + 1 WHERE Username = ?");
-        $pollsCreatedStmt->bindValue(1, $_SESSION['activeuser']);
-        $pollsCreatedStmt->execute();
-
-        $db = null;
-
-        header("Location:userpolls.php");
-        exit;
-    } catch (PDOException $ex) {
-        echo "<div class='o1'>Error: " . $ex->getMessage() . "</div>";
-    }
-}
-?>
 
 <head>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            text-align: center;
-        }
+    html {
+    background-image: linear-gradient(rgb(193, 191, 241), rgb(165, 109, 105));
+    }
+
+    header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid lightgrey;
+    margin-left: auto;
+    margin-right:auto;
+    width:1024px;
+    }
+    body {
+        background-image: url(images/logo2-removebg-preview.png) ;
+        background-position:center; 
+        background-repeat: no-repeat;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 1.125rem;
+        text-align: center;
+    `
+    }
+    .container {
+        width: 1024px;
+        min-height: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+    .navbutton {
+        border: 1px solid white;
+        padding: 11px 25px;
+        font-family: 'Playfair Display', serif;
+        display: inline-block;
+        position: relative;
+    }  
 
         .o1 {
             width: 250px;
-            border: 10px solid white;
             border-radius: 10px;
             margin: 20px auto;
             background-color: #007BFF;
@@ -114,10 +97,95 @@ if (isset($_POST["create"])) {
             font-weight: bold;
             margin-bottom: 5px;
         }
+        a {
+            color: white;
+            text-decoration: none;
+        }
     </style>
 </head>
 
 <body>
+<header>
+            <div class="logo">
+                <a href="index1.html">
+                    <img src="images/logo2-removebg-preview.png " width="100px" height="100px">
+                </a>
+            </div>
+
+            <nav>
+
+
+            
+                <div class="navbutton">
+                    <a href="index1.html">Home</a>
+                </div>
+
+
+            </nav>
+        </header>
+<?php
+require("status.php");
+session_start();
+if (!isset($_SESSION['activeuser'])) {
+        echo "<script>
+        alert('Cannot create poll, Please log in!');
+        window.location.href = 'loginPage.php';
+      </script>";
+    exit();
+}
+echo "<div class='o1'>Welcome " . $_SESSION['activeuser'] . "</div>";
+if (isset($_POST["create"])) {
+    try {
+        $questionName = $_POST["questionName"];
+        $op = $_POST["op"];
+
+        require('connection.php');
+        $db->beginTransaction();
+        $rs = $db->prepare("INSERT INTO surveys(question, results, voters, expireDate, creater, status) VALUES(?,?,?,?,?,?)");
+        $rs->bindParam(1, $questionName);
+
+        foreach ($op as $key) {
+            if (!isset($results[$key])){
+            $results[$key] = 0;
+            } else {
+                echo "<script>alert('Duplicate answers. Please try again.');</script>";
+                $db->commit();
+                $db = null;        
+                goto end;
+            }
+        }
+        $resultsJ = json_encode($results);
+        $rs->bindParam(2, $resultsJ);
+
+        $voters = '[]';
+        $rs->bindParam(3, $voters);
+
+        if ($_POST['close'] == 'manual') {
+            $rs->bindValue(4, '');
+        } else {
+            $rs->bindParam(4, $_POST['dateExpiry']);
+        }
+
+        $rs->bindValue(5, $_SESSION['activeuser']);
+        $rs->bindValue(6, 1);
+        $rs->execute();
+
+        $pollsCreatedStmt = $db->prepare("UPDATE users SET pollsCreated = pollsCreated + 1 WHERE Username = ?");
+        $pollsCreatedStmt->bindValue(1, $_SESSION['activeuser']);
+        $pollsCreatedStmt->execute();
+
+        $db->commit();
+        $db = null;
+
+        header("Location:userpolls.php");
+        exit;
+    } catch (PDOException $ex) {
+        $db->rollBack();
+        echo "<div class='o1'>Error: " . $ex->getMessage() . "</div>";
+    }
+    end:
+}
+?>
     <form method="POST" onsubmit="return empty()" action="" name="form">
         <h1>Make Your Poll</h1>
         <label>
@@ -167,20 +235,20 @@ if (isset($_POST["create"])) {
                 pollOptionsContainer.removeChild(pollOptionsContainer.lastChild);
                 --optionCount;
             } else {
-                alert("At least two options are required");
+                alert("At least two options are required.");
             }
         }
 
         function empty() {
             var questionName = document.forms["form"]["questionName"].value;
             if (questionName == "") {
-                alert('Must write your question');
+                alert('Please enter a question.');
                 return false;
             }
             var op = document.getElementsByName("op[]");
             for (let x in op) {
                 if (op[x].value.trim() == "") {
-                    alert("Answer cannot be empty");
+                    alert("Please fill the empty answer.");
                     return false;
                 }
             }
