@@ -81,7 +81,6 @@ exit();
         if ($isvote)
         {   
             echo "<div class='poll-container'>";
-            echo "<div class='poll-info'>Creater:". $row['creater']. "</div>";
             echo "<div class='poll-info'>Question: " . $row["question"] . "</div>";
             echo "<div class='poll-info'>Results: <br><br> ";
             foreach ($result as $key => $value){
@@ -97,6 +96,7 @@ exit();
             
                 if ($row["expireDate"] !="0000-00-00")
                 echo "<div class='poll-info'>Expire Date: " . $row["expireDate"] . "</div>";
+                echo "<div class='poll-info'>Creater:". $row['creater']. "</div>";
                 if ($row["status"]==0)
                 echo "<div class='poll-info'>Status:Close</div>";
                 else 
@@ -105,7 +105,7 @@ exit();
         }else 
         {
             echo "<div class='poll-container'>";
-            echo "<div class='poll-info'>Creater:". $row['creater']. "</div>";
+           
             echo "<div class='poll-info'>Question: " . $row["question"] . "</div>";
             echo "<div class='poll-info'>votes:<br> ";
             echo "<form method='POST' action=''>";
@@ -119,11 +119,12 @@ exit();
             
                 if ($row["expireDate"] !="0000-00-00")
                 echo "<div class='poll-info'>Expire Date: " . $row["expireDate"] . "</div>";
-            
+                echo "<div class='poll-info'>Creater:". $row['creater']. "</div>";
                 if ($row["status"]==0)
                 echo "<div class='poll-info'>Status:Close</div>";
                 else 
                 echo "<div class='poll-info'>Status:Open</div>";
+
         }
         echo "</div>";
         echo "</div>";
