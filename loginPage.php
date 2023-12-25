@@ -152,10 +152,12 @@ button:hover {
             <form id="signin-form" method="post" action="">
 
                 <p>Suggestions: <span id="txtHint"></span></p>
+                <p>email test: <span id ="emailv"></span></p>
                 <input type="text" placeholder="Username" name="username" required onkeyup ="showHint(this.value)">
-                <input type="email" placeholder="Email" name="email" required>
+                <input type="text" placeholder="Email"  name="email" required onkeyup="emailV(this.value)">
                 <input type="password" placeholder="Password" name="password" required>
-                <button type="submit" name="signin">Signin</button>
+                <button type="submit" name="signin" id="signin-button">Signin</button>
+
             </form>
             Already have an account? <a href="#" id="login">login</a>
         </div>
@@ -198,7 +200,43 @@ button:hover {
         function myAJAXFunction() {
             document.getElementById("txtHint").innerHTML = this.responseText;
         }
-   
+
+        function emailV(str) {
+    if (str.length == 0) {
+        document.getElementById("emailv").innerHTML = "";
+        enableSigninButton();
+        return;
+    }
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+        handleEmailValidation(this.responseText);
+    };
+    xhttp.open("GET", "emailv.php?emailv=" + str, true);
+    xhttp.send();
+}
+
+function handleEmailValidation(response) {
+    var emailvMessage = document.getElementById("emailv");
+    var signinButton = document.getElementById("signin-button");
+
+    if (response.trim() === "true") {
+        emailvMessage.innerHTML = "Email already exists!";
+        disableSigninButton();
+    } else {
+        emailvMessage.innerHTML = "";
+        enableSigninButton();
+    }
+}
+
+function disableSigninButton() {
+    document.getElementById("signin-button").disabled = true;
+}
+
+function enableSigninButton() {
+    document.getElementById("signin-button").disabled = false;
+}
+
 
 </script>
 </body>

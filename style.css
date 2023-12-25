@@ -1,51 +1,210 @@
-.container
-{
-width: 1024px;
-background-color: red;
-min-height: 300px;
-margin-left: auto;
-margin-right: auto;
+html {
+    background-image: linear-gradient(rgb(193, 191, 241), rgb(165, 109, 105));
 }
 
-header
-{
-background-color: blue;
-min-height: 100px;
+body {
+    background-image: url(images/logo2-removebg-preview.png) ;
+    background-position:center; 
+    background-repeat: no-repeat;
+     font-family: 'Roboto', sans-serif;
+    font-size: 1.125rem;
 }
 
-main
-{
-background-color: green;
-min-height: 300px;
+a {
+    color: white;
+    text-decoration: none;
 }
 
-.card
-{
-    background-color: bisque;
+
+
+.container {
+    width: 1024px;
     min-height: 300px;
-    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid lightgrey;
+}
+
+
+
+main {
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    flex: auto;
+}
+
+.main2 {
+    min-height: 300px;
+    padding-top: 50px;
+}
+
+.cards {
+    display: flex;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.card1 {
+    background-image: url(images/poll-8=.png) ;
+    background-repeat: no-repeat;
+    background-size: 310px 280px;
+    background-position: bottom;
+    min-height: 250px;
+    width: 30%;   
+    box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.228);
+}
+
+.card2 {
+    background-image: url(images/poll-155=.png);
+    background-size: cover;
+    background-position: bottom;
+    color: white;
+    width: 30%;
+    min-height: 250px;
+    box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.228);
+}
+
+.card3 {
+    background-image: url(images/poll-16.jpg);
+    background-size: cover;
+    background-position: bottom;
+    width: 30%;
+    min-height: 250px;
+    box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.228);
+}
+
+.card1, .card2, .card3 {
+    padding: 30px 30px 20px 30px; 
+    box-sizing: border-box;
+}
+
+.herobox1 {
+    flex: 2;
+    padding-right: 100px;
+}
+
+.herobox2 {
+    flex: 1;
+    /*
+    height: 30px;
+    width: 30px;
+    */
+    margin-top: 40px;
+    border-bottom: 25px  solid lightblue;
 
 }
 
-.card1
-{
-    background-color: whitesmoke;
-    min-height: 300px;
-    width: 30%;
+
+h1 {
+    font-size: 3.25rem;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 1rem;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.228);
 }
 
-.card2
-{
-    background-color: black;
-    min-height: 300px;
-    width: 30%;
+h2 {
+    color: white;
+    font-size: 2rem;
+    font-family: 'Playfair Display', serif;
+    margin-top: 20px;
 }
 
-.card3
+p {
+    line-height: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+
+footer
 {
-    background-color: fuchsia;
-    min-height: 300px;
-    width: 30%;
+    font-size: 2.25rem;
+    font-family: 'Playfair Display', serif;
+    background-color: #7f5e69;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.228);
+
+}
+
+.cards p {
+    font-size: 0.85rem;
+    line-height: 1.2rem;
+    margin-top: 10px;
+}
+
+.cards i {
+    color: aliceblue;
+    font-size: 100px;
+}
+
+
+
+.mybutton {
+    background-color: white;
+    color: #7f5e69;
+    font-family: 'Playfair Display', serif;
+    padding: 11px 25px;
+    border-radius: 2px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.228);
+}
+
+.mybutton:hover {
+    background-color: rgb(29, 213, 103);
+    transition-duration: 1s;
+}
+
+a.mybutton {
+    display: inline-block;
+    margin-top: 1
+    0px;
+}
+
+nav a.mybutton {
+    margin-left: 30px;
+}
+
+.navbutton {
+    border: 1px solid white;
+    padding: 11px 25px;
+    font-family: 'Playfair Display', serif;
+    display: inline-block;
+    position: relative;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.navbutton:hover .dropdown {
+    display: block;
+}
+
+.dropdown .navbutton {
+    width: 120px;
+    background-color: white;
+}
+
+.dropdown .navbutton a {
+    color: #FA4083;
+}
+
+
+.inputwrapper {
+    margin-bottom: 30px;
 }
