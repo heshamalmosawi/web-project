@@ -79,13 +79,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login/Signup</title>
-<style>
+    <body>
+    <div class="container1">
+        <header>
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/logo2-removebg-preview.png " width="100px" height="100px" alt="Logo for Bike Repair shop Roar Bikes">
+                </a>
+            </div>
+
+            <nav>
+                
+                <div class="navbutton">
+                    <a href="#">Home</a>
+                </div>
+
+
+            </nav>
+        </header>
+    
+    <style>
+
+html {
+    background-image: linear-gradient(rgb(193, 191, 241), rgb(165, 109, 105));
+}
+
+body {
+    background-image: url(images/logo2-removebg-preview.png) ;
+    background-position:center; 
+    background-repeat: no-repeat;
+     font-family: 'Roboto', sans-serif;
+    font-size: 1.125rem;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.container1 {
+    width: 1024px;
+    min-height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid lightgrey;
+}
+
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
 }
 
 .container {
@@ -94,15 +147,24 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-size: cover;
     margin: 0;
     padding: 0;
+}
+.navbutton {
+    border: 1px solid white;
+    padding: 11px 25px;
+    font-family: 'Playfair Display', serif;
+    display: inline-block;
+    position: relative;
 }
 
 .form-container {
     width: 400px;
-    padding: 20px;
-    background-color: white;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+    padding: 100px;
+    margin: top;
+   /* background-color: white; */
+    box-shadow: 0px 2px 2px rgba(44, 26, 26, 0.794);
 }
 
 form {
@@ -127,28 +189,22 @@ button {
     text-transform: uppercase;
     font-weight: bold;
 }
-
-button:hover {
-    background-color: #0056b3;
-}
-
-
     </style>
 </head>
 <body>
 <div class="container">
         <div class="form-container" id="login-container">
-            <h2>Login</h2>
+            
             <form id="login-form" method="post" action="<?php echo $action; ?>">
                 <input type="text" placeholder="Username" name="username" required>
                 <input type="password" placeholder="Password" name="password" required>
                 <button type="submit" name="login">Login</button>
             </form>
-            Don't have an account? <a href="#" id="signin">sign in</a>
+            <div style="margin: 5px; text-align: center; border-radius: 5px; background-color: lightgray;"> Don't have an account? <a href="#" id="signin"><b style="color: red;">sign in</b></a></div>
         </div>
 
         <div class="form-container" id="signin-container">
-            <h2>Signin</h2>
+           
             <form id="signin-form" method="post" action="">
 
                 <p>Suggestions: <span id="txtHint"></span></p>
@@ -159,7 +215,7 @@ button:hover {
                 <button type="submit" name="signin" id="signin-button">Signin</button>
 
             </form>
-            Already have an account? <a href="#" id="login">login</a>
+            <div style="margin: 5px; text-align: center; border-radius: 5px; background-color: lightgray;" >Already have an account? <a href="#" id="login"><b style="color: red;">login</b></a></div>
         </div>
     </div>
 <script>
