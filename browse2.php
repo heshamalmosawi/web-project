@@ -9,8 +9,102 @@ try {
     foreach ($fet as $row){
         extract($row);
         echo "<a href='viewpoll.php?id=$id'>$question</a>"   ;
+
     }    
     
+
+//     $resjson = json_decode($fet[0]['results'],true);
+//     $votjson = json_decode($fet[0]['voters'],true);
+    
+//      echo $fet[0]['question']."<br>";
+//             $sum=0;
+//      foreach ($resjson as $key => $value)
+//      {   
+//         $sum +=$value;
+//      }
+//     foreach ($resjson as $key => $value)
+//     {   echo $key." ";
+//         echo "<progress id='file' value='".$value."' max='".$sum."'></progress> ". $value/$sum . "% <br>";
+//     }
+//     if ($fet[0]["status"]==1)
+//     {
+//         echo "Status:Open";   
+//     }
+//     else 
+//     echo "Status:Close";
+
+//     echo "<br> who vote in this poll <br>";
+//     for ($i=0; $i<count($votjson);++$i)
+//     {
+//         echo $votjson[$i]."<br>";
+//     }
+
+
+//     echo "<br><br>";
+//     echo "<form method='POST' action=''>";
+//     foreach ($resjson as $key => $value)
+//     {   echo $key." ";
+//         echo "<input type='radio' name='op' value='".$key."'><br>";
+//     }
+//     echo "<input type='submit' name='voting' value='vote'>";
+//     echo "</form>";
+  
+//     echo $resjson[$_POST['op']];
+//     echo "<br>";
+//     if (isset($_POST['voting']))
+//     {
+//         $resjson[$_POST['op']]++;
+//     }
+
+//     echo $resjson[$_POST['op']];
+//     echo "<br>";
+//     $isvote =false;
+//     for ($i=0; $i<count($votjson);++$i)
+//     {
+//         if ($_SESSION['activeuser']==$votjson[$i])
+//         {
+//             $isvote=true;
+//         }
+        
+//     }
+//    if ($isvote)
+//    {
+//     echo "no vote";
+//    }else
+//    echo "vote";
+
+//    echo "<br><br>";
+
+
+   
+
+//    $updateSQL = $db->prepare("UPDATE surveys (results,voters) VALUES (?,?) WHERE id =?");
+//    $upr=json_encode($resjson);
+//    $upv=json_encode($votjson);
+//    $updateSQL->bindParam(1,$upr);
+//    $updateSQL->bindParam(2,$upv);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 } catch (PDOException $e) {
     die($e->getMessage());
 }
