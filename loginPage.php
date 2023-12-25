@@ -72,6 +72,7 @@
                 die($ex->getMessage());
             }
         }
+
     }
 ?>
 
@@ -136,33 +137,29 @@ button:hover {
 </head>
 <body>
 <div class="container">
+        <div class="form-container" id="login-container">
+            <h2>Login</h2>
+            <form id="login-form" method="post" action="<?php echo $action; ?>">
+                <input type="text" placeholder="Username" name="username" required>
+                <input type="password" placeholder="Password" name="password" required>
+                <button type="submit" name="login">Login</button>
+            </form>
+            Don't have an account? <a href="#" id="signin">sign in</a>
+        </div>
 
-    <div class="form-container" id="login-container">
-        <h2>Login</h2>
-        <form id="login-form" method="post" action="<?php echo $action;?>">
+        <div class="form-container" id="signin-container">
+            <h2>Signin</h2>
+            <form id="signin-form" method="post" action="">
 
-            <input type="text" placeholder="Username" name="username" required>
-            <input type="password" placeholder="Password" name="password" required>
-            <button type="submit" name="login">Login</button>
-
-        </form>
-        Don't have an account? <a href="#" id="signin">sign in</a>
+                <p>Suggestions: <span id="txtHint"></span></p>
+                <input type="text" placeholder="Username" name="username" required onkeyup ="showHint(this.value)">
+                <input type="email" placeholder="Email" name="email" required>
+                <input type="password" placeholder="Password" name="password" required>
+                <button type="submit" name="signin">Signin</button>
+            </form>
+            Already have an account? <a href="#" id="login">login</a>
+        </div>
     </div>
-
-    <div class="form-container" id="signin-container">
-        <h2>Signin</h2>
-        <form id="signin-form" method="post" action="">
-
-            <input type="text" placeholder="Username" name="username" required>
-            <input type="email" placeholder="Email" name="email" required>
-            <input type="password" placeholder="Password" name="password" required>
-            <button type="submit" name="signin">Signin</button>
-            
-        </form>
-
-        Already have an account? <a href="#" id="login">login</a>
-    </div>
-</div>
 <script>
     document.getElementById('login-container').style.display = 'block';
     document.getElementById('signin-container').style.display = 'none';
@@ -186,6 +183,23 @@ button:hover {
     e.preventDefault();
     showLoginForm();
     });
+
+    function showHint(str) {
+            if (str.length == 0) {
+                document.getElementById("txtHint").innerHTML = "";
+                return;
+            }
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = myAJAXFunction;
+            xhttp.open("GET", "gethint.php?hint=" + str, true);
+            xhttp.send();
+        }
+
+        function myAJAXFunction() {
+            document.getElementById("txtHint").innerHTML = this.responseText;
+        }
+   
+
 </script>
 </body>
 </html>
