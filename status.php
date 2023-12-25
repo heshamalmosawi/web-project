@@ -1,7 +1,7 @@
 <?php
 
 $time= date('Y-m-d');
-echo "the time now is: " . $time . "<BR><BR>";
+
 try{
 require("connection.php");
 $rs=$db->query("Select * FROM surveys");
