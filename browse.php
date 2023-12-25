@@ -1,3 +1,23 @@
+
+<body>
+<header>
+            <div class="logo">
+                <a href="index1.html">
+                    <img src="images/logo2-removebg-preview.png " width="100px" height="100px" alt="Logo for Bike Repair shop Roar Bikes">
+                </a>
+            </div>
+
+            <nav>
+
+
+            
+                <div class="navbutton">
+                    <a href="index1.html">Home</a>
+                </div>
+
+
+            </nav>
+        </header>
 <?php
 try {
     session_start();
@@ -18,18 +38,41 @@ try {
     die($e->getMessage());
 }
 ?>
+</body>
 
 <style>
   html {
     background-image: linear-gradient(rgb(193, 191, 241), rgb(165, 109, 105));
 }
-
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid lightgrey;
+}
 body {
     background-image: url(images/logo2-removebg-preview.png) ;
     background-position:center; 
     background-repeat: no-repeat;
      font-family: 'Roboto', sans-serif;
     font-size: 1.125rem;
+}
+.container {
+    width: 1024px;
+    min-height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.navbutton {
+    border: 1px solid white;
+    padding: 11px 25px;
+    font-family: 'Playfair Display', serif;
+    display: inline-block;
+    position: relative;
 }
     
 
