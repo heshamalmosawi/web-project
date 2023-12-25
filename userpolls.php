@@ -142,7 +142,8 @@ if (isset($_POST['open'])) {
         echo "</div>";
     }
 
-    echo "<a href='addpoll.php'>Add More Polls?</a>";
+    echo "<div><a href='addpoll.php'>Add More Polls?</a></div>";
+    echo "<div><a href='browse.php'>Browse other polls</a></div>";
     ?>
 </body>
 </html>
