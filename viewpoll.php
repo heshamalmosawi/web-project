@@ -74,12 +74,10 @@ try
 
             $upr=json_encode($result);
             $upv=json_encode($voters);
-            echo $upr;
-            echo $upv;
             $updateSQL->bindParam(1,$upr);
             $updateSQL->bindParam(2,$upv);
             $updateSQL->bindValue(3,$id);
-            $$updateSQL->execute();
+            $updateSQL->execute();
             $db = null;
     
     
