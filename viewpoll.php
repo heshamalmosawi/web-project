@@ -2,7 +2,7 @@
 if (!isset($_GET['id'])){
     echo "<script>
     alert('Invalid Poll, please try again!');
-    window.location.href = 'browse2.php';
+    window.location.href = 'browse.php';
   </script>";
 exit();
 }
@@ -22,7 +22,7 @@ foreach($rows as $row){
 if (!$isFound){
     echo "<script>
     alert('Invalid Poll, please try again!');
-    window.location.href = 'browse2.php';
+    window.location.href = 'browse.php';
   </script>";
 } 
 session_start();
