@@ -81,6 +81,7 @@ exit();
         if ($isvote)
         {   
             echo "<div class='poll-container'>";
+            echo "<div class='poll-info'>Creater:". $row['creater']. "</div>";
             echo "<div class='poll-info'>Question: " . $row["question"] . "</div>";
             echo "<div class='poll-info'>Results: <br><br> ";
             foreach ($result as $key => $value){
@@ -104,6 +105,7 @@ exit();
         }else 
         {
             echo "<div class='poll-container'>";
+            echo "<div class='poll-info'>Creater:". $row['creater']. "</div>";
             echo "<div class='poll-info'>Question: " . $row["question"] . "</div>";
             echo "<div class='poll-info'>votes:<br> ";
             echo "<form method='POST' action=''>";
