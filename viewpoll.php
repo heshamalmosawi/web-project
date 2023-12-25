@@ -1,6 +1,30 @@
 <?php
+if (!isset($_GET['id'])){
+    echo "<script>
+    alert('Invalid Poll, please try again!');
+    window.location.href = 'browse2.php';
+  </script>";
+exit();
+}
+
 $id=$_GET['id'];
 require('connection.php');
+$rs= $db->query('SELECT * FROM surveys');
+$rows = $rs->fetchAll(PDO::FETCH_ASSOC);
+
+$isFound=false;
+foreach($rows as $row){
+    if ($id==$row['id']){
+        $isFound=true;
+        break;
+    }
+} 
+if (!$isFound){
+    echo "<script>
+    alert('Invalid Poll, please try again!');
+    window.location.href = 'browse2.php';
+  </script>";
+} 
 session_start();
 $rs = $db->prepare("SELECT * FROM surveys WHERE id =?");
 $rs->bindValue(1, $id);
@@ -63,14 +87,7 @@ try
                 echo "<div class='poll-info'>Status:Open</div>";
         }
     
-       
-        if (isset($_POST['vote']))
-        {
-            $result[$_POST['op']]++;
-            $voters[] = $_SESSION['activeuser'];
-        }
-    
-          $updateSQL = $db->prepare("UPDATE surveys SET results=?,voters=? WHERE id =?");
+        $updateSQL = $db->prepare("UPDATE surveys SET results=?,voters=? WHERE id =?");
 
             $upr=json_encode($result);
             $upv=json_encode($voters);
@@ -79,7 +96,25 @@ try
             $updateSQL->bindValue(3,$id);
             $updateSQL->execute();
             $db = null;
+            
+            
+        if (isset($_POST['vote']))
+        {
+            $result[$_POST['op']]++;
+            $voters[] = $_SESSION['activeuser'];
+        }
     
+        $upr=json_encode($result);
+        $upv=json_encode($voters);
+        $updateSQL->bindParam(1,$upr);
+        $updateSQL->bindParam(2,$upv);
+        $updateSQL->bindValue(3,$id);
+        $updateSQL->execute();
+        $db = null;
+        
+        if (isset($_POST['vote']))
+        header("Location:viewpoll.php?id=".$id);
+
     
     }
     
