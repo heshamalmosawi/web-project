@@ -1,7 +1,7 @@
 <?php
 try {
     session_start();
-
+// 
     require('connection.php');
 
     $all_poll = 'SELECT * FROM surveys';
