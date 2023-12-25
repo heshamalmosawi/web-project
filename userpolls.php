@@ -1,4 +1,6 @@
 <?php
+  require('status.php');
+
 if (isset($_POST['close'])) {
     $id = $_POST['id'];
 
@@ -103,7 +105,7 @@ if (isset($_POST['open'])) {
     echo "<h2>Welcome " . $_SESSION['activeuser'] . ", these are your polls!</h2>";
 
     require('connection.php');
-
+    
     $rs = $db->prepare("SELECT * FROM surveys WHERE creater = ?");
     $rs->bindValue(1, $_SESSION['activeuser']);
     $rs->execute();
@@ -118,13 +120,14 @@ if (isset($_POST['open'])) {
         echo "<div class='poll-info'>Results: ";
         
         $result =json_decode($row["results"],true);
+        $voters= json_decode($row['voters'],true);
         foreach ($result as $key => $value){
-        echo  "<br>".$value."% " ;
-        echo "<progress  value='$value' max='100'></progress> $key";}
+            echo  "<br>".($value*100/count($voters))."% " ;
+            echo "<progress  value='$value' max='".count($voters)."'></progress> $key";}
 
         echo "</div>";
-        echo "<div class='poll-info'>Voters: " . $row["voters"] . "</div>";
-        echo "<div class='poll-info'>Expire Date: " . $row["expireDate"] . "</div>";
+       if ($row["expireDate"] !="0000-00-00")
+                echo "<div class='poll-info'>Expire Date: " . $row["expireDate"] . "</div>";
         echo "<div class='poll-info'>Status: " . $row["status"] . "</div>";
 
         echo "<form method='post' action=''>";
@@ -133,7 +136,7 @@ if (isset($_POST['open'])) {
             echo "<div class='button-container'><input type='submit' name='close' value='Close Poll'></div>";
         } else {
             echo "<div class='button-container'>";
-            echo "<input type='date' name='date' required>";
+            echo "<input type='date' name='date' >";
             echo "<input type='submit' name='open' value='Open Poll'>";
             echo "</div>";
         }
