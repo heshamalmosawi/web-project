@@ -110,10 +110,19 @@ if (isset($_POST['open'])) {
     $rows = $rs->fetchAll(PDO::FETCH_ASSOC);
     $db = null;
 
+    
     foreach ($rows as $row) {
         echo "<div class='poll-container'>";
         echo "<div class='poll-info'>Question: " . $row["question"] . "</div>";
-        echo "<div class='poll-info'>Results: " . $row["results"] . "</div>";
+        
+        echo "<div class='poll-info'>Results: ";
+        
+        $result =json_decode($row["results"],true);
+        foreach ($result as $key => $value){
+        echo  "<br>".$value."% " ;
+        echo "<progress  value='$value' max='100'></progress> $key";}
+
+        echo "</div>";
         echo "<div class='poll-info'>Voters: " . $row["voters"] . "</div>";
         echo "<div class='poll-info'>Expire Date: " . $row["expireDate"] . "</div>";
         echo "<div class='poll-info'>Status: " . $row["status"] . "</div>";
