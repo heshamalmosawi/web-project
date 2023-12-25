@@ -39,12 +39,17 @@ if (isset($_POST['open'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Polls</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-            color: #333;
-        }
+         html {
+    background-image: linear-gradient(rgb(193, 191, 241), rgb(165, 109, 105));
+}
+
+body {
+    background-image: url(images/logo2-removebg-preview.png) ;
+    background-position:center; 
+    background-repeat: no-repeat;
+     font-family: 'Roboto', sans-serif;
+    font-size: 1.125rem;
+}
 
         h2 {
             color: #007BFF;
@@ -55,7 +60,7 @@ if (isset($_POST['open'])) {
             padding: 10px;
             margin-bottom: 10px;
             background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px #007BFF;
             border-radius: 5px;
         }
 

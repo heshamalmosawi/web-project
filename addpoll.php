@@ -50,12 +50,20 @@ if (isset($_POST["create"])) {
 
 <head>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            text-align: center;
-        }
+    html {
+    background-image: linear-gradient(rgb(193, 191, 241), rgb(165, 109, 105));
+    }
+
+    body {
+        background-image: url(images/logo2-removebg-preview.png) ;
+        background-position:center; 
+        background-repeat: no-repeat;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 1.125rem;
+        text-align: center;
+
+    }
+       
 
         .o1 {
             width: 250px;
