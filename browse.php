@@ -1,6 +1,10 @@
 <?php
 try {
     session_start();
+    if (!isset($_SESSION['activeuser'])) {
+        die("Please login!");
+    }
+    echo "<h2>Welcome " . $_SESSION['activeuser'] . ", these are all polls to vote for!</h2>";
 
     require('connection.php');
 
@@ -49,6 +53,7 @@ try {
                    
             "<div class='poll-info ' id='Expire'>Expire Date: " + <?php echo json_encode($fet); ?>[id]["expireDate"] + "</div>" +
             "<div class='poll-info'>Status: " + <?php echo json_encode($fet); ?>[id]["status"] + "</div>" + 
+            "<div class='poll-info'>Creator: "+ <?php echo json_encode($fet); ?>[id]["creater"]+"</div>"+
             "</div>";
             var expire =document.getElementById("Expire");
     if (s=="0000-00-00")
