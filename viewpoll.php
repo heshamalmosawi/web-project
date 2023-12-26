@@ -1,9 +1,12 @@
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 <body>
 
     <div class="container1">
         <header>
             <div class="logo">
-                <a href="index1.html">
+                <a href="index.html">
                     <img src="images/logo2-removebg-preview.png " width="100px" height="100px">
                 </a>
             </div>
@@ -11,7 +14,7 @@
             <nav>
                 
                 <div class="navbutton">
-                    <a href="index1.html">Home</a>
+                    <a href="index.html">Home</a>
                 </div>
 
 
@@ -81,6 +84,7 @@ exit();
         if ($isvote)
         {   
             echo "<div class='poll-container'>";
+            echo "<div class='poll-info'>Creater:". $row['creater']. "</div>";
             echo "<div class='poll-info'>Question: " . $row["question"] . "</div>";
             echo "<div class='poll-info'>Results: <br><br> ";
             foreach ($result as $key => $value){
@@ -104,6 +108,7 @@ exit();
         }else 
         {
             echo "<div class='poll-container'>";
+            echo "<div class='poll-info'>Creater:". $row['creater']. "</div>";
             echo "<div class='poll-info'>Question: " . $row["question"] . "</div>";
             echo "<div class='poll-info'>votes:<br> ";
             echo "<form method='POST' action=''>";
@@ -165,11 +170,12 @@ exit();
 
 <style>
   html {
-    background-image: linear-gradient(rgb(193, 191, 241), rgb(165, 109, 105));
+    height:100%;
+    width: 100%;
 }
 
 body {
-    background-image: url(images/logo2-removebg-preview.png) ;
+    background-image:url(images/logo2-removebg-preview.png), linear-gradient(rgb(193, 191, 241), rgb(165, 109, 105));
     background-position:center; 
     background-repeat: no-repeat;
      font-family: 'Roboto', sans-serif;
@@ -182,7 +188,7 @@ a {
 }
 
 .container1 {
-    width: 1024px;
+    width: 95%;
     min-height: 300px;
     margin-left: auto;
     margin-right: auto;
@@ -195,6 +201,7 @@ header {
     padding-top: 20px;
     padding-bottom: 20px;
     border-bottom: 1px solid lightgrey;
+    width: 95%;
 
 }
 
