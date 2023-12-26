@@ -8,11 +8,11 @@
 * Hasan Abdulnabi salman - 202110297 - Section 6
 * Abdulrahman Jalal Zaid - 202100690 - Section 4
 
-### Objectives
+###Objectives
 * To create an online platform that will provide an easy-to-use & effecient polling web application.
 * To have a better understanding of our course material and gather experience on it.
 
-## Usage
+##Usage
  1. download manually or clone github repository using: 
  ```
  git clone https://github.com/heshamalmosawi/web-project

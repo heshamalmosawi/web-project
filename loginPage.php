@@ -108,7 +108,7 @@
             </nav>
         </header>
     
-    <style>
+<style>
 
 html {
     height:100%;
