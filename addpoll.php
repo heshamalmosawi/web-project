@@ -1,5 +1,5 @@
-
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
     html {
     background-image: linear-gradient(rgb(193, 191, 241), rgb(165, 109, 105));
@@ -14,7 +14,7 @@
     border-bottom: 1px solid lightgrey;
     margin-left: auto;
     margin-right:auto;
-    width:1024px;
+    width:95%;
     }
     body {
         background-image: url(images/logo2-removebg-preview.png) ;
@@ -23,15 +23,8 @@
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 1.125rem;
         text-align: center;
-    `
     }
-    .container {
-        width: 1024px;
-        min-height: 300px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
+    
 
     .navbutton {
         border: 1px solid white;
@@ -101,13 +94,26 @@
             color: white;
             text-decoration: none;
         }
+        @media (max-width:768px){
+          form {
+            width: 80%;
+            /* height: 40%; */
+          }  
+          h1 {
+            font-size:45px;
+          }
+          input[type='text'],
+        input[type='date']{
+            width:85%;
+        }
+        }
     </style>
 </head>
 
 <body>
 <header>
             <div class="logo">
-                <a href="index1.html">
+                <a href="index.html">
                     <img src="images/logo2-removebg-preview.png " width="100px" height="100px">
                 </a>
             </div>
@@ -117,7 +123,7 @@
 
             
                 <div class="navbutton">
-                    <a href="index1.html">Home</a>
+                    <a href="index.html">Home</a>
                 </div>
 
 

@@ -1,21 +1,19 @@
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 
 <body>
 <header>
             <div class="logo">
-                <a href="index1.html">
+                <a href="index.html">
                     <img src="images/logo2-removebg-preview.png " width="100px" height="100px" alt="Logo for Bike Repair shop Roar Bikes">
                 </a>
             </div>
 
             <nav>
-
-
-            
                 <div class="navbutton">
-                    <a href="index1.html">Home</a>
+                    <a href="index.html">Home</a>
                 </div>
-
-
             </nav>
         </header>
 
@@ -44,7 +42,8 @@ try {
 ?>
 <style>
   html {
-    background-image: linear-gradient(rgb(193, 191, 241), rgb(165, 109, 105));
+    min-height:100%;
+    min-width:100%
 }
 header {
     display: flex;
@@ -54,24 +53,19 @@ header {
     padding-bottom: 20px;
     border-bottom: 1px solid lightgrey;
     margin:0 auto;
-    width:1024px;
 }
 body {
-    background-image: url(images/logo2-removebg-preview.png) ;
+    background-image:url(images/logo2-removebg-preview.png), linear-gradient(rgb(193, 191, 241), rgb(165, 109, 105));
     background-position:center; 
     background-repeat: no-repeat;
-     font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 1.125rem;
+    background-size: cover;
 }
-.container {
-    width: 1024px;
-    min-height: 300px;
-    margin-left: auto;
-    margin-right: auto;
-}
+
 .allq{
-    margin:0 auto;
-    width:1024px;
+    margin:5% auto;
+    width:95%;
 }
 
 .navbutton {
@@ -114,5 +108,29 @@ body {
     .poll-info {
         font-weight: bold;
         margin-bottom: 5px;
+    }
+
+
+    @media (max-width: 768px){
+        .poll-container {
+            padding: 35px;
+            margin:0 5%;
+        }
+        .poll-info
+        {
+            font-size: 35px;
+        }
+    }
+    @media (max-width: 450px){
+        .poll-info{
+            font-size:16px;
+        }
+        .poll-container{
+            margin-bottom:5px;
+            padding:10px;
+        }
+        body{
+            background-size:contain;
+        }
     }
 </style>

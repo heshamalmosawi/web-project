@@ -5,8 +5,9 @@
     <title>User Polls</title>
     <style>
   html {
-    background-image: linear-gradient(rgb(193, 191, 241), rgb(165, 109, 105));
-}
+    height:100%;
+    width: 100%;
+    }
 header {
     display: flex;
     justify-content: space-between;
@@ -14,23 +15,16 @@ header {
     padding-top: 20px;
     padding-bottom: 20px;
     margin:0 auto;
-    width:1024px;
+    width:95%;
     border-bottom: 1px solid lightgrey;
 }
 body {
-    background-image: url(images/logo2-removebg-preview.png) ;
+    background-image:url(images/logo2-removebg-preview.png), linear-gradient(rgb(193, 191, 241), rgb(165, 109, 105));
     background-position:center; 
     background-repeat: no-repeat;
      font-family: 'Roboto', sans-serif;
     font-size: 1.125rem;
 }
-.container {
-    width: 1024px;
-    min-height: 300px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 
 .navbutton {
     border: 1px solid white;
@@ -53,7 +47,7 @@ body {
             border-radius: 5px;
             margin-left:auto;
             margin-right:auto;
-            width:1024px;
+            width:92%;
         }
 
         .poll-info {
@@ -91,12 +85,30 @@ body {
         a:hover {
             text-decoration: underline;
         }
+        @media (max-width: 768px){
+        .poll-container {
+            margin:10px auto;
+        }
+        .poll-info
+        {
+            font-size: 30px;
+        }
+        }
+        @media (max-width: 450px){
+        .poll-container {
+            margin:5px auto;
+        }
+        .poll-info
+        {
+            font-size: 20px;
+        }
+        }
     </style>
 </head>
 <body>
 <header>
             <div class="logo">
-                <a href="index1.html">
+                <a href="index.html">
                     <img src="images/logo2-removebg-preview.png " width="100px" height="100px">
                 </a>
             </div>
@@ -106,7 +118,7 @@ body {
 
             
                 <div class="navbutton">
-                    <a href="index1.html">Home</a>
+                    <a href="index.html">Home</a>
                 </div>
 
 

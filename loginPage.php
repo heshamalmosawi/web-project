@@ -1,3 +1,6 @@
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 <?php 
 
     $regex_username = '/^[a-z]{3,15}$/i';
@@ -90,7 +93,7 @@
     <div class="container1">
         <header>
             <div class="logo">
-                <a href="index1.html">
+                <a href="index.html">
                     <img src="images/logo2-removebg-preview.png " width="100px" height="100px">
                 </a>
             </div>
@@ -98,7 +101,7 @@
             <nav>
                 
                 <div class="navbutton">
-                    <a href="index1.html">Home</a>
+                    <a href="index.html">Home</a>
                 </div>
 
 
@@ -108,11 +111,12 @@
     <style>
 
 html {
-    background-image: linear-gradient(rgb(193, 191, 241), rgb(165, 109, 105));
+    height:100%;
+    width: 100%;
 }
 
 body {
-    background-image: url(images/logo2-removebg-preview.png) ;
+    background-image:url(images/logo2-removebg-preview.png), linear-gradient(rgb(193, 191, 241), rgb(165, 109, 105));
     background-position:center; 
     background-repeat: no-repeat;
      font-family: 'Roboto', sans-serif;
@@ -125,7 +129,7 @@ a {
 }
 
 .container1 {
-    width: 1024px;
+    width: 95%;
     min-height: 300px;
     margin-left: auto;
     margin-right: auto;
@@ -138,6 +142,7 @@ header {
     padding-top: 20px;
     padding-bottom: 20px;
     border-bottom: 1px solid lightgrey;
+    width:95%;
 }
 
 
@@ -150,7 +155,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     background-size: cover;
     margin: 0;
     padding: 0;
@@ -164,10 +168,9 @@ body {
 }
 
 .form-container {
-    width: 400px;
+    width: 40%;
     padding: 100px;
-    margin: top;
-   /* background-color: white; */
+    margin-top: 7%;
     box-shadow: 0px 2px 2px rgba(44, 26, 26, 0.794);
 }
 
