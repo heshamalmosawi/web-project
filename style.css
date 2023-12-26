@@ -62,8 +62,8 @@ main {
 .card1 {
     background-image: url(images/poll-8=.png) ;
     background-repeat: no-repeat;
-    background-size: 310px 280px;
-    background-position: bottom;
+    background-size: cover;
+    background-position: center;
     min-height: 250px;
     width: 30%;   
     box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.228);
@@ -217,7 +217,14 @@ nav a.mybutton {
      width: 220px; 
      display:inline-block;
      padding-top:4px; 
-     padding-left:45%;
+     padding-left:181px;
+}
+.phone
+{
+ position: relative;
+ right:10%;
+ font-size: 100%;
+
 }
 
 @media (max-width:768px){
@@ -250,7 +257,46 @@ nav a.mybutton {
     }
     #rightpiclabel{
         width: 70px;
-        padding-right: 20%;
-        
+        font-size: 13px;
+        padding-left:130px
     }
+    
+    .cards {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        margin-top: 2%;
+        margin-bottom: 3%;
+        justify-content: space-between;
+        text-align: center;
+        align-content: center;
+    }
+    .cards .card:last-child {
+        margin: 0 auto;
+    }
+    .card1 
+    {
+        background-repeat:repeat;
+        width: 70%;
+        margin-bottom: 10px;
+    }
+    .card2 
+    {
+        width: 70%;
+        margin-bottom: 10px
+    }
+    .card3 
+    {
+        width: 70%;
+        margin-bottom: 10px
+    }
+  
+   .phone
+   {
+    position: relative;
+    right: 80%;
+    font-size: 100%;
+   }
+      
+  
 }

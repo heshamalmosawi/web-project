@@ -165,13 +165,15 @@ body {
         echo "</div>";
        if ($row["expireDate"] !="0000-00-00")
                 echo "<div class='poll-info'>Expire Date: " . $row["expireDate"] . "</div>";
-        echo "<div class='poll-info'>Status: " . $row["status"] . "</div>";
+       
 
         echo "<form method='post' action=''>";
         echo "<input type='hidden' name='id' value='" . $row["id"] . "' />";
         if ($row["status"] == 1) {
             echo "<div class='button-container'><input type='submit' name='close' value='Close Poll'></div>";
+            echo "<div class='poll-info'>Status:Open</div>";
         } else {
+            echo "<div class='poll-info'>Status:Close</div>";
             echo "<div class='button-container'>";
             echo "<input type='date' name='date' >";
             echo "<input type='submit' name='open' value='Open Poll'>";
