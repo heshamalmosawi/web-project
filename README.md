@@ -23,8 +23,8 @@
 git clone https://github.com/heshamalmosawi/web-project
 ```
 
-2.  move it into htdocs file of XAMPP
-3.  download and setup XAMPP from https://www.apachefriends.org/
+2.  download and setup XAMPP from https://www.apachefriends.org/ 
+3.  move it into htdocs file of XAMPP
 4.  open XAMMP, turn on SQL and Apache server
 5.  Import the database 'pollsdb.sql' into your sql server & make sure it has the same name.
 6.  open http://localhost/web-project/
