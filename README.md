@@ -4,11 +4,11 @@
 
 ### AUTHORS
 
-- Sayed Hesham Ahmed
-- Loay Hasan Dalal
-- Ebrahim Ali Ebrahim
-- Hasan Abdulnabi salman
-- Abdulrahman Jalal Zaid
+- [Sayed Hesham Ahmed](https://github.com/heshamalmosawi)
+- [Loay Dalal](https://github.com/LoayDalal)
+- [Ebrahim Ali Ebrahim](https://github.com/Ebraali2003)
+- [Hasan Abdulnabi salman](https://github.com/shakhoori10)
+- [Abdulrahman Jalal Zaid](https://github.com/zorkbo)
 
 ### Objectives
 
