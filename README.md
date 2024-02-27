@@ -8,7 +8,7 @@
 - Loay Hasan Dalal
 - Ebrahim Ali Ebrahim
 - Hasan Abdulnabi salman
-- Abdulrahman Jalal Zaid - 202100690 - Section 4
+- Abdulrahman Jalal Zaid
 
 ### Objectives
 
